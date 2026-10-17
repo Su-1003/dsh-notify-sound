@@ -1,0 +1,57 @@
+{
+  "name": "dsh-notify-sound",
+  "version": "0.1.0",
+  "description": "DSH Web 客户端插件：任务完成、需要授权/确认、出错中断时播放提示音，并在界面右上角弹出通知条",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.cjs"
+    },
+    "./package.json": {
+      "default": "./package.json"
+    }
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-renderer"
+      ]
+    }
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "README.en.md",
+    "docs",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "plugin",
+    "web-ui",
+    "notification",
+    "sound",
+    "alert"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Su-1003/dsh-notify-sound.git"
+  },
+  "homepage": "https://github.com/Su-1003/dsh-notify-sound",
+  "bugs": {
+    "url": "https://github.com/Su-1003/dsh-notify-sound/issues"
+  },
+  "author": "Su-1003",
+  "license": "MIT"
+}

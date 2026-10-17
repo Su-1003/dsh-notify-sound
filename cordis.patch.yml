@@ -1,0 +1,7 @@
+# bundle patch for dsh-notify-sound：把插件行插入 profile 名册。
+# 宿主半边（exports "."）是空壳，只为让这一行在 Loader 里存在；
+# package.json 的 dsh.client 声明让浏览器半边（exports "./client"）
+# 在 Web GUI 中加载。
+- insert:
+    - id: notify-sound
+      name: 'dsh-notify-sound'
