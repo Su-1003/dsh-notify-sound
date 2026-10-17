@@ -41,6 +41,7 @@ The sound only serves to call you once: all three kinds share **the same call sh
 - **Six tones**: clean / soft / bell / alarm (triple) / minimal (single) / wood (default).
 - **No spam**: the same kind chimes at most once per 1.5 s; repeats within 4 s are coalesced into `×N` on the toast.
 - **Toasts**: up to 4 at a time, auto-dismiss after 20 s, closable one by one or all at once.
+- **Scoped to the DSH window**: the toast is a DOM element inside the page — no system notifications, nothing drawn over other apps; the container is `pointer-events:none`, so only the card itself takes clicks.
 - **Never drifts into the sidebar**: if any ancestor of the mount point has `transform` / `filter`, `position:fixed` stops being viewport-relative, so the plugin measures and compensates every frame and keeps the overlay in the **viewport** corner.
 - **First observation is only a baseline**: loading the plugin never floods you with history.
 
