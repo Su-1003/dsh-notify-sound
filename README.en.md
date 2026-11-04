@@ -27,7 +27,7 @@
 | **Waiting for confirmation** | a `pendingInteraction` appears (approval / confirm dialog) | amber `#d29922` |
 | **Failed / interrupted** | the turn ends but carries an error flag | red `#f85149` |
 
-The sound only serves to call you once: all three kinds share **the same call shape** (a two-note chime); they differ only in the toast text and colour. To tell them apart, edit `CALL_SHAPE` in `lib/client.cjs`.
+The sound only serves to call you once: all three kinds share **the same call shape** (a two-note chime); they differ only in the toast text and colour. To give each kind its own sound, split the `sameTone(f)` of a preset in `lib/client.cjs` into `{ done: [...], confirm: [...], error: [...] }`.
 
 <div align="center">
 
@@ -38,7 +38,8 @@ The sound only serves to call you once: all three kinds share **the same call sh
 ## Features
 
 - **No audio assets at all** — the chime is synthesised live with the Web Audio API (oscillator + exponential envelope). Zero resource files, zero runtime dependencies.
-- **Six tones**: clean / soft / bell / alarm (triple) / minimal (single) / wood (default).
+- **Twelve tones**: wood (default) / clean / soft / bell / alarm (triple) / minimal (single) / rising triad / marimba / water drop / falling pair / low thud / tick — every one is auditionable in the settings page.
+- **Settings page**: **Settings → Notification sound** lets you mute the chime, turn the toasts off, fire a test notification and reset to defaults.
 - **No spam**: the same kind chimes at most once per 1.5 s; repeats within 4 s are coalesced into `×N` on the toast.
 - **Toasts**: up to 4 at a time, auto-dismiss after 20 s, closable one by one or all at once.
 - **Scoped to the DSH window**: the toast is a DOM element inside the page — no system notifications, nothing drawn over other apps; the container is `pointer-events:none`, so only the card itself takes clicks.
@@ -71,12 +72,25 @@ Restart DSH or reload the web GUI afterwards.
 
 **First run**: browsers only allow audio after a user gesture, so click or press a key anywhere in the GUI once — the plugin unlocks its `AudioContext` then, and the chime works from that point on.
 
-## Changing the tone
+## Settings
 
-There is no settings UI yet; two ways to change it:
+Once installed, open **Settings → Notification sound**:
 
-1. Edit `DEFAULT_SOUND_SET` in `lib/client.cjs` (one of `clean` / `soft` / `bell` / `alarm` / `minimal` / `wood`) and reload the GUI;
-2. Or run `localStorage.setItem("dsh-notify-sound.style", "bell")` in the browser console — the key is fixed and honoured on reload.
+| Item | What it does |
+|---|---|
+| **Chime** switch | Off = toasts only, no sound |
+| **Toasts** switch | Off = neither toasts nor sound |
+| **Tone list** | twelve presets; click a row to select it, hit **Preview** to hear it right away |
+| **Send test notification** | drops a real sample toast so you can check both the sound and the card |
+| **Reset to defaults** | back to wood with both switches on |
+
+Preferences live in browser `localStorage` (`dsh-notify-sound.style` / `.sound` / `.banner`) and apply instantly; nothing is written to the host settings document. The console works too:
+
+```javascript
+localStorage.setItem("dsh-notify-sound.style", "bell");  // tone
+localStorage.setItem("dsh-notify-sound.sound", "off");   // chime off
+localStorage.setItem("dsh-notify-sound.banner", "off");  // toasts off
+```
 
 ## Known limitations
 
@@ -90,7 +104,7 @@ There is no settings UI yet; two ways to change it:
 ```
 cordis.patch.yml   inserts the plugin row into the profile roster
 lib/index.js       host half: a stub that only exposes a mountable apply
-lib/client.cjs     browser half: state tracking + chime synthesis + toast overlay (prebuilt, no build step)
+lib/client.cjs     browser half: state tracking + chime synthesis + toast overlay + settings page (prebuilt, no build step)
 ```
 
 The decision logic comes entirely from `uiSession.sessionStatus` transitions in the DSH client: a `pendingInteraction` appearing means confirmation is needed; `running` going from true to false with nothing pending means finished or failed. Activating after `ui-session` is fine too — the plugin polls for up to 15 s waiting for the service to be ready.
