@@ -29,6 +29,8 @@
 
 The sound only serves to call you once: all three kinds share **the same call shape** (a two-note chime); they differ only in the toast text and colour. To give each kind its own sound, split the `sameTone(f)` of a preset in `lib/client.cjs` into `{ done: [...], confirm: [...], error: [...] }`.
 
+The toast copy is Chinese — `任务完成` / `需要你确认` / `出错 / 被中断` — and the settings panel is Chinese too; the plugin ships no translation layer. Everything below quotes those strings as-is so you know what to look for on screen.
+
 <div align="center">
 
 <img src="docs/toast-confirm.png" width="280" alt="Toast when the agent waits for approval">&nbsp;&nbsp;<img src="docs/toast-done.png" width="320" alt="Toast when a turn finishes">
@@ -74,15 +76,23 @@ Restart DSH or reload the web GUI afterwards.
 
 ## Settings
 
-Once installed, open **Settings → Notification sound**:
+Once installed, open **Settings → 通知提示音** (Notification sound):
+
+<div align="center">
+
+<img src="docs/settings.png" width="360" alt="Settings page: notification sound">
+
+<sub>The panel itself is Chinese-only, so the labels below are quoted as they appear on screen. Twelve tone rows in total; the screenshot shows the first eight.</sub>
+
+</div>
 
 | Item | What it does |
 |---|---|
-| **Chime** switch | Off = toasts only, no sound |
-| **Toasts** switch | Off = neither toasts nor sound |
-| **Tone list** | twelve presets; click a row to select it, hit **Preview** to hear it right away |
-| **Send test notification** | drops a real sample toast so you can check both the sound and the card |
-| **Reset to defaults** | back to wood with both switches on |
+| **提示音** (chime) switch | Off = toasts only, no sound |
+| **通知条** (toasts) switch | Off = neither toasts nor sound |
+| **音色** (tone) list | twelve presets; click a row to select it, hit **试听** (preview) to hear it right away |
+| **发送测试通知** (send test notification) | drops a real sample toast so you can check both the sound and the card |
+| **恢复默认** (reset to defaults) | back to wood with both switches on |
 
 Preferences live in browser `localStorage` (`dsh-notify-sound.style` / `.sound` / `.banner`) and apply instantly; nothing is written to the host settings document. The console works too:
 

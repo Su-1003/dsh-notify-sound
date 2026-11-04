@@ -76,6 +76,14 @@ git clone https://github.com/Su-1003/dsh-notify-sound.git "$env:USERPROFILE\.dsh
 
 装好之后打开 **设置 → 通知提示音**：
 
+<div align="center">
+
+<img src="docs/settings.png" width="360" alt="设置页：通知提示音">
+
+<sub>真实界面就长这样。上面两个开关管「响不响」「弹不弹」，下面一列音色，每行右侧都有「试听」；列表共 12 行，图里截到第 8 行。</sub>
+
+</div>
+
 | 项 | 作用 |
 |---|---|
 | **提示音** 开关 | 关掉只弹通知条，不出声 |
