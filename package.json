@@ -1,7 +1,7 @@
 {
   "name": "dsh-notify-sound",
-  "version": "0.1.0",
-  "description": "DSH Web 客户端插件：任务完成、需要授权/确认、出错中断时播放提示音，并在界面右上角弹出通知条",
+  "version": "0.2.0",
+  "description": "DSH 客户端插件：任务完成、需要授权/确认、出错中断时播放提示音并在界面内显示通知条；设置 → 通知提示音可换音色、试听、关声音/关通知条",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
